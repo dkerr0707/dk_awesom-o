@@ -1,6 +1,7 @@
 #include <utility>
 #include <string>
 #include <iostream>
+#include <vector>
 
 int main() {
     std::string s0;
