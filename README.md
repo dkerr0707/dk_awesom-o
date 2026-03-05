@@ -1,1 +1,1 @@
-DKs AWS GPU Code
+DKs New Computer Exercise Code Repo
