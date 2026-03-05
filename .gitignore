@@ -2,3 +2,5 @@ cpu_add
 optional
 move
 ssi
+cuda_add
+
