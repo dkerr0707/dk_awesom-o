@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 
 __global__
 void saxpy(int n, float a, float *x, float *y) {
@@ -14,20 +15,15 @@ void saxpy(int n, float a, float *x, float *y) {
 int main(void) {
 
     int N = 1 << 20;
-    float *x, *y, *d_x, *d_y;
-    x = new float[N];
-    y = new float[N];
+    float *d_x, *d_y;
+    std::vector<float> x(N, 1.5f);
+    std::vector<float> y(N, 2.0f);
 
     cudaMalloc (&d_x, N * sizeof(float));
     cudaMalloc (&d_y, N * sizeof(float));
 
-    for (int i = 0; i < N; i++) {
-        x[i] = 1.0f;
-        y[i] = 2.0f;
-    }
-
-    cudaMemcpy (d_x, x, N * sizeof(float), cudaMemcpyHostToDevice);
-    cudaMemcpy (d_y, y, N * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy (d_x, &x[0], N * sizeof(float), cudaMemcpyHostToDevice);
+    cudaMemcpy (d_y, &y[0], N * sizeof(float), cudaMemcpyHostToDevice);
 
     std::cout << "Run it" << std::endl;
 
@@ -35,7 +31,7 @@ int main(void) {
 
     std::cout << "Done" << std::endl;
 
-    cudaMemcpy (y, d_y, N * sizeof(float), cudaMemcpyDeviceToHost);
+    cudaMemcpy (&y[0], d_y, N * sizeof(float), cudaMemcpyDeviceToHost);
 
     std::cout << "Get max error" << std::endl;
     float maxError = 0.0f;
@@ -46,8 +42,6 @@ int main(void) {
 
     cudaFree(d_x);
     cudaFree(d_y);
-    delete[] x;
-    delete[] y;
 }
 
 
