@@ -1,2 +1,2 @@
-nsys profile -t cuda --stats=true ./cuda_add
+nsys profile -t cuda --stats=true ./saxpy
 
