@@ -4,7 +4,7 @@
 __global__
 void saxpy(int n, float a, float *x, float *y) {
 
-    int i = blockIdx.x * blockDim.x + threadIdx.x;
+    int i = blockDim.x * blockIdx.x + threadIdx.x;
 //    printf("%d\n", i);
 
     if (i < n) {
@@ -25,15 +25,10 @@ int main(void) {
     cudaMemcpy (d_x, &x[0], N * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy (d_y, &y[0], N * sizeof(float), cudaMemcpyHostToDevice);
 
-    std::cout << "Run it" << std::endl;
-
     saxpy<<<(N+255) / 256, 256>>> (N, 2.0f, d_x, d_y);
-
-    std::cout << "Done" << std::endl;
 
     cudaMemcpy (&y[0], d_y, N * sizeof(float), cudaMemcpyDeviceToHost);
 
-    std::cout << "Get max error" << std::endl;
     float maxError = 0.0f;
     for (int i = 0; i < N; i++) {
         maxError = fmax(maxError, fabs (y[i] - 4.0f));
