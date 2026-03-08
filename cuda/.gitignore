@@ -1,5 +1,3 @@
-cuda_add
-saxpy
-
+bin/
 report*
 

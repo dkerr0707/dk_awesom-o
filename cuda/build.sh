@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
-nvcc cuda_add.cu -o cuda_add
+DIRECTORY="bin/"
 
-nvcc saxpy.cu -o saxpy
+if [ ! -d "$DIRECTORY" ]; then
+    mkdir bin/
+fi
+
+nvcc cuda_add.cu -o bin/cuda_add
+
+nvcc saxpy.cu -o bin/saxpy
+
+nvcc device.cu -o bin/device
+
