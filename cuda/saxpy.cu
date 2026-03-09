@@ -33,6 +33,16 @@ int main(void) {
     saxpy<<<(N+511) / 512, 512>>> (N, 2.0f, d_x, d_y);
     cudaEventRecord (stop);
 
+    cudaError_t errSync = cudaGetLastError();
+    cudaError_t errAsync = cudaDeviceSynchronize();
+
+    if (errSync != cudaSuccess) {
+        std::cout << "Sync kernel error " << cudaGetErrorString(errSync) << std::endl;
+    }
+    if (errAsync != cudaSuccess) {
+        std::cout << "Async kernel error " << cudaGetErrorString(errAsync) << std::endl;
+    }
+
     cudaMemcpy (&y[0], d_y, N * sizeof(float), cudaMemcpyDeviceToHost);
 
     cudaEventSynchronize (stop);
