@@ -18,6 +18,9 @@ int main() {
         float peakMemoryBandwidth = prop.memoryClockRate * (prop.memoryBusWidth / 8) / 1.0e6; 
         std::cout << "  Peak Memory Bandwidth (GB/s): " << peakMemoryBandwidth << std::endl;
 
+        std::cout << "  Compute Capability:" << std::endl;
+        std::cout << "      Major: " << prop.major << std::endl;
+        std::cout << "      Minor: " << prop.minor << std::endl;
     }
 
 }
