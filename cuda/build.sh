@@ -12,3 +12,5 @@ nvcc saxpy.cu -o bin/saxpy
 
 nvcc device.cu -o bin/device
 
+nvcc data_transfer.cu -o bin/data_transfer
+
