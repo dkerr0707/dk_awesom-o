@@ -14,3 +14,5 @@ nvcc device.cu -o bin/device
 
 nvcc data_transfer.cu -o bin/data_transfer
 
+nvcc streams.cu -o bin/streams
+

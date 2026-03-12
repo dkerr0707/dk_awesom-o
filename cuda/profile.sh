@@ -1,2 +1,4 @@
-nsys profile -t cuda --stats=true ./bin/data_transfer
+nsys profile -t cuda --stats=true ./bin/streams
+
+rm report*
 

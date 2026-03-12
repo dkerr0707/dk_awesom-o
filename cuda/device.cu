@@ -14,6 +14,7 @@ int main() {
         std::cout << "  Device Name: " << prop.name << std::endl;
         std::cout << "  Memory Clock Rate (KHz): " << prop.memoryClockRate << std::endl;
         std::cout << "  Memory Bus Width (bits): " << prop.memoryBusWidth << std::endl;
+        std::cout << "  Device Overlap: " << prop.deviceOverlap << std::endl << std::endl;
 
         float peakMemoryBandwidth = prop.memoryClockRate * (prop.memoryBusWidth / 8) / 1.0e6; 
         std::cout << "  Peak Memory Bandwidth (GB/s): " << peakMemoryBandwidth << std::endl;
