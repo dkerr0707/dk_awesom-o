@@ -16,7 +16,7 @@ int main(int argc, char* argv[]) {
 
     std::cout << "v1: " << v1 << std::endl;
 
-    int N = (1 << 20);// * 500;
+    int N = (1 << 20);
     int bytes  = N * sizeof(float);
     int streamSize = 1024;
     int nStreams = N / streamSize;
@@ -36,6 +36,12 @@ int main(int argc, char* argv[]) {
     cudaError_t result;
     for (int i = 0; i < nStreams; i++)
         result = cudaStreamCreate(&stream[i]);
+
+    cudaEvent_t start, stop;
+    cudaEventCreate (&start);
+    cudaEventCreate (&stop);
+
+    cudaEventRecord (start);
 
     if (v1) {
 
@@ -63,6 +69,13 @@ int main(int argc, char* argv[]) {
             cudaMemcpyAsync (&a[offset], &d_a[offset], streamBytes, cudaMemcpyDeviceToHost, stream[i]);
         }
     }
+
+    cudaEventRecord (stop);
+    cudaEventSynchronize (stop);
+
+    float ms = 0;
+    cudaEventElapsedTime (&ms, start, stop);
+    std::cout << "ms: " << ms << std::endl;
 
 //    for (int i = 0; i < N; i++)
   //      std::cout << a[i] << " ";
